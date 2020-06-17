@@ -1,18 +1,13 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
-void mostrarMensagem(const std::string &nomePrograma);
+void adicionarMensagemNoArquivo(std::string mensagem);
 
 int main(int argc, char *argv[]) {
 	
-	if(argc == 1){
-		mostrarMensagem(argv[0]);
-		return 1;
-	}
-
-	std::string primeiroArgumento = argv[1];
-	if(primeiroArgumento != "add"){
-		mostrarMensagem(argv[0]);
+	if(argc == 1 || (argc > 1 && std::string(argv[1]) != "add")){
+		std::cout << "Uso: " << argv[0] << " add <mensagem>" << std::endl;
 		return 1;
 	}
 
@@ -23,11 +18,19 @@ int main(int argc, char *argv[]) {
 	}else{
 		mensagem = argv[2];
 	}
-	std::cout << "Mensagem adicionada!" << std::endl;
+
+	adicionarMensagemNoArquivo(mensagem);
+	
 	
   	return 0;
 }
 
-void mostrarMensagem(const std::string &nomePrograma){
-	std::cout << "Uso: " << *nomePrograma << " add <mensagem>" << std::endl;
+void adicionarMensagemNoArquivo(std::string mensagem){
+	std::ofstream arquivo("arquivo.txt", std::ios::app);
+	
+	arquivo << mensagem;
+	std::cout << "Mensagem adicionada!" << std::endl;
+
+	arquivo.close();
+	
 }
