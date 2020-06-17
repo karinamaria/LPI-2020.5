@@ -1,16 +1,18 @@
 #include <iostream>
 #include <string>
 
+void mostrarMensagem(const std::string &nomePrograma);
+
 int main(int argc, char *argv[]) {
 	
 	if(argc == 1){
-		std::cout << "Uso: " << argv[0] << " add <mensagem>" << std::endl;
+		mostrarMensagem(argv[0]);
 		return 1;
 	}
 
 	std::string primeiroArgumento = argv[1];
 	if(primeiroArgumento != "add"){
-		std::cout << "Uso: " << argv[0] << " add <mensagem>" << std::endl;
+		mostrarMensagem(argv[0]);
 		return 1;
 	}
 
@@ -24,4 +26,8 @@ int main(int argc, char *argv[]) {
 	std::cout << "Mensagem adicionada!" << std::endl;
 	
   	return 0;
+}
+
+void mostrarMensagem(const std::string &nomePrograma){
+	std::cout << "Uso: " << *nomePrograma << " add <mensagem>" << std::endl;
 }
