@@ -23,7 +23,7 @@ int App::run(int argc, char* argv[]){
             add();
         } else {
             add(argv[2]);
-        }    
+        }   
     }
     else if (action == "list") {
         list_messages();
@@ -37,7 +37,7 @@ int App::run(int argc, char* argv[]){
 
 void App::add(){
     std::string message;
-    std::cout << "Enter your message:" << std::endl;
+    std::cout << "Enter your message: ";
     std::getline(std::cin, message);
 
     add(message);
@@ -51,7 +51,7 @@ void App::add(const std::string message){
 void App::list_messages(){
     for (size_t i = 0; i < diary.messages_size; ++i) {
         const Message& message = diary.messages[i];
-        std::cout << "-" << message.content << std::endl;
+        std::cout << "- " << message.content << std::endl;
     }
 }
 
