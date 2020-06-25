@@ -2,9 +2,12 @@
 
 
 Diary::Diary(const std::string& filename) : filename(filename), messages(nullptr), 
-messages_size(0) {
-	messages_capacity = 10;
+messages_size(0), messages_capacity(10){
 	messages = new Message[messages_capacity];
+}
+
+Diary::~Diary(){
+    delete[] messages;
 }
 
 void Diary::add(const std::string& message){
@@ -12,7 +15,9 @@ void Diary::add(const std::string& message){
 	if(messages_size >= messages_capacity){
 		return;// interrompe a execução do método
 	}
-    messages[messages_size].content = message;
+	Message msg;
+	msg.content = message;
+    messages[messages_size] = msg;
     messages_size++;
 }
 
