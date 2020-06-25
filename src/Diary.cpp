@@ -1,4 +1,5 @@
 #include "Diary.h"
+#include "Util.h"
 
 Diary::Diary(const std::string& filename) : filename(filename), messages(nullptr), 
 messages_size(0), messages_capacity(10){
@@ -16,8 +17,8 @@ void Diary::add(const std::string& message){
 	}
 	Message msg;
 	msg.content = message;
-	msg.date.set_from_string("");
-	msg.time.set_from_string("");
+	msg.date.set_from_string(get_current_date());
+	msg.time.set_from_string(get_current_time());
     messages[messages_size] = msg;
     messages_size++;
 }
