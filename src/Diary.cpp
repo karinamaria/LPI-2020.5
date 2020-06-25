@@ -16,8 +16,8 @@ void Diary::add(const std::string& message){
 	}
 	Message msg;
 	msg.content = message;
-	//msg.date.set_from_string_date("");
-	//msg.time.set_from_string_time("");
+	msg.date.set_from_string("");
+	msg.time.set_from_string("");
     messages[messages_size] = msg;
     messages_size++;
 }

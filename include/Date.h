@@ -10,6 +10,7 @@ struct Date{
     unsigned month;
     unsigned day;
 
-    void set_from_string_date(const std::string& date);
+    void set_from_string(const std::string& date);
+    std::string to_string();
 };
 #endif
