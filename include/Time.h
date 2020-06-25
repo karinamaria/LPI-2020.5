@@ -10,7 +10,6 @@ struct Time{
     unsigned minute;
     unsigned second;
 
-    void set_from_string(const std::string& time);
-    std::string to_string();
+    void set_from_string_time(const std::string& time);
 };
 #endif
