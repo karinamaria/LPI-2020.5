@@ -2,13 +2,13 @@
 #define MESSAGE_H
 
 #include "Date.h"
-#include "Time.h"
+#include "Hour.h"
 
 #include <string>
 
 struct Message{
     std::string content;
     Date date;
-    Time time;
+    Hour hour;
 };
 #endif
