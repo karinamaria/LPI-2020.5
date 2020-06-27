@@ -6,17 +6,15 @@ Hour::Hour() : time(0), minute(0), second(0) {
 
 }
 
-void Hour::set_from_string(const std::string& time){
-	Hour t;
-
-  std::stringstream stream(time);
+void Hour::set_from_string(const std::string& tempo){
+  std::stringstream stream(tempo);
   char discard;
 
-  stream >> t.time;
+  stream >> time;
   stream >> discard;
-  stream >> t.minute;
+  stream >> minute;
   stream >> discard;
-  stream >> t.second;
+  stream >> second;
 }
 
 std::string Hour::to_string() {

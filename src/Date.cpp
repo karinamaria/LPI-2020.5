@@ -5,17 +5,14 @@
 Date::Date() : year(0), month(0), day(0) {
 }
 void Date::set_from_string(const std::string& date){
-	Date d;
-
   std::stringstream stream(date);
   char discard;
 
-  stream >> d.day;
+  stream >> day;
   stream >> discard;
-  stream >> d.month;
+  stream >> month;
   stream >> discard;
-  stream >> d.year;
-
+  stream >> year;
 }
 
 std::string Date::to_string() {
