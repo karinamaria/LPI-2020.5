@@ -13,5 +13,5 @@ struct Hour{
     void set_from_string(const std::string& tempo);
     std::string to_string();
 };
-/****/
+
 #endif
