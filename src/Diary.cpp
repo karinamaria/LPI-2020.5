@@ -65,13 +65,11 @@ void Diary::loadDiary(const std::string& filename){
       		continue;//se a qnt de bytes for zero, é iniciada a próxima interação do while
     	}
     	if(linha[0] == '#'){
-    		msg.date.set_from_string(linha.erase(0,2));
+    		msg.date.set_from_string(linha.substr(2));
     		continue;
     	}
-    	linha = linha.erase(0,2);//apagar o - e o espaço
-    	msg.hour.set_from_string(linha.substr(0, 8));
-    	linha = linha.erase(0, 8);
-    	msg.content = linha.erase(0,1);
+    	msg.hour.set_from_string(linha.substr(2, 10));
+    	msg.content = linha.substr(11);
     	add(msg);
   	}
 }
