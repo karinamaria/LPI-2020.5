@@ -51,6 +51,15 @@ void Diary::write(){
   	
 }
 
+Message* Diary::search(const std::string& what){
+	for(size_t i=0; i<messages_size; i++){
+		if(messages[i].content.find(what) != std::string::npos){
+			return messages+i;
+		}
+	}
+	return nullptr;
+}
+
 void Diary::loadDiary(const std::string& filename){
 	Message msg;
 	

@@ -17,6 +17,7 @@ struct Diary{
     void add(const std::string& message);
     void add(const Message& message);
     void write();
+    Message* search(const std::string& what);
     void loadDiary(const std::string& filename);
     void increaseArray();
 };
