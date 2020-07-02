@@ -4,63 +4,53 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 
-Diary::Diary(const std::string& filename) : filename(filename), messages(nullptr), 
-messages_size(0), messages_capacity(10){
-	messages = new Message[messages_capacity];
+Diary::Diary(const std::string& filename) : filename(filename){
 	loadDiary(filename);
 }
 
 Diary::~Diary(){
-    delete[] messages;
+    write();
 }
 
 void Diary::add(const std::string& message){
-	
-	if(messages_size >= messages_capacity){
-		increaseArray();
-	}
 	Message msg;
 	msg.content = message;
 	msg.date.set_from_string(get_current_date());
 	msg.hour.set_from_string(get_current_time());
-    messages[messages_size] = msg;
-    messages_size++;
+    messages.push_back(msg);
 }
 
 void Diary::add(const Message& message){
-	if(messages_size >= messages_capacity){
-		increaseArray();
-	}
-	messages[messages_size] = message;
-	messages_size++;
+	messages.push_back(message);
 }
 void Diary::write(){
     std::ofstream arquivo_saida(filename);
     if (!arquivo_saida.is_open()) {
     	return;
   	}
-  	for(size_t i=0; i<messages_size; i++){
-  		std::string date_message = messages[i].date.to_string();
-		if(!existeDataNoArquivo(filename, date_message)){
+  	for(Message& msg : messages){
+  		std::string date_message = msg.date.to_string();
+  		if(!existeDataNoArquivo(filename, date_message)){
 			arquivo_saida << "# " << date_message << std::endl;
 		}
-		std::string hora = messages[i].hour.to_string();
-		arquivo_saida << "- " << hora << " "<< messages[i].content << std::endl;
+		std::string hora = msg.hour.to_string();
+		arquivo_saida << "- " << hora << " "<< msg.content << std::endl;
   	}
-  	
 }
 
-Message* Diary::search(const std::string& what){
-	for(size_t i=0; i<messages_size; i++){
-		if(messages[i].content.find(what) != std::string::npos){
-			return messages+i;
+std::vector<Message*> Diary::search(const std::string& what){
+	std::vector<Message*> msg_search;
+	for(Message& msg : messages){
+		if(msg.content.find(what) != std::string::npos){
+			msg_search.push_back(&msg);
 		}
 	}
-	return nullptr;
+	return msg_search;
 }
 
-void Diary::loadDiary(const std::string& filename){
+void Diary::loadDiary(const std::string& filename){	
 	Message msg;
 	
 	std::ifstream arquivo(filename, std::ios::in | std::ios::app);
@@ -81,14 +71,4 @@ void Diary::loadDiary(const std::string& filename){
     	msg.content = linha.substr(11);
     	add(msg);
   	}
-}
-
-void Diary::increaseArray(){
-	messages_capacity *= 2;
-	Message* new_array = new Message[messages_capacity];
-	for(size_t i=0; i<messages_size; i++){
-		new_array[i] = messages[i];
-	}
-	delete[] messages;
-	messages = new_array;
 }

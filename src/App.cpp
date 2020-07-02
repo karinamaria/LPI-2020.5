@@ -54,8 +54,7 @@ void App::add(const std::string message){
 }
 
 void App::list_messages(){
-    for (size_t i = 0; i < diary.messages_size; ++i) {
-        const Message& message = diary.messages[i];
+    for (Message& message : diary.messages) {
         std::cout << "- " << message.content << std::endl;
     }
 }
@@ -69,14 +68,15 @@ void App::search(){
 }
 
 void App::search(const std::string what){
-    Message *message = diary.search(what);
-    if(message == nullptr){
+    std::vector<Message*> message = diary.search(what);
+    if(message.empty()){
         std::cout << "Message not found" << std::endl;
         return;
     }
-    std::cout << "# " << message->date.to_string() << std::endl;
-    std::cout << "- " << message->hour.to_string() << " ";
-    std::cout << message->content << std::endl;
+    for (Message* msg : message) {
+        std::cout << "- " << msg->hour.to_string() << " ";
+        std::cout << msg->content << std::endl;
+    }
 }
 
 int App::show_usage(){
